@@ -60,6 +60,17 @@ app.put('/products/:id', (req, res) => {
     }
 })
 
+app.delete('/products/:id', (req, res) => {
+    const id = req.params.id
+    const index = products.findIndex(product => product.id == id)
+    if (index !== -1) {
+        products.splice(index, 1)
+        res.status(204).json()
+    } else {
+        res.status(404).json({})
+    }
+})
+
 const port = 3000
 
 app.listen(port, () => {
