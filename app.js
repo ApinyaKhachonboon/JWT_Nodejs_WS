@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 class Product {
     constructor(id, name, image, price, stock) {
         this.id = id
@@ -15,6 +17,8 @@ const products = [
     new Product(1, "Macbook Pro", "", 90000, 0),
     new Product(2, "iPhone XS", "", 50000, 10),
 ]
+
+let count = products.length
 
 app.get('/products', (req, res) => {
     res.json(products)
@@ -35,7 +39,13 @@ app.get('/products/:id', (req, res) => {
     }
 })
 
-
+app.post('/products', (req, res) => {
+    const { name, price, stock } = req.body
+    count = count + 1
+    const product = new Product(count, name, "", price, stock)
+    products.push(product)
+    res.status(201).json(product)
+})
 
 const port = 3000
 
