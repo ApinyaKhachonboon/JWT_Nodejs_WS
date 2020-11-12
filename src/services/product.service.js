@@ -21,17 +21,17 @@ exports.findByPrice = (min, max) => products.filter(product => product.price >= 
 
 exports.findById = (id) => products.filter(product => product.id == id)
 
-exports.add = (product) => {
+exports.add = (product, file) => {
     count = count + 1
-    const productNew = new Product(count, product.name, "", product.price, product.stock)
+    const productNew = new Product(count, product.name, file ? file.filename : "", product.price, product.stock)
     products.push(productNew)
     return productNew
 }
 
-exports.update = (id, product) => {
+exports.update = (id, product, file) => {
     const index = products.findIndex(product => product.id == id)
     if (index !== -1) {
-        const productUpdated = new Product(Number(id), product.name, "", product.price, product.stock)
+        const productUpdated = new Product(Number(id), product.name, file ? file.filename : products[index].image, product.price, product.stock)
         products[index] = productUpdated
         return productUpdated
     }
