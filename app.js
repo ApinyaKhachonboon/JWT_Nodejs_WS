@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use('/image', express.static('./images'))
+
 app.use(express.json())
 
 app.use(require('./src/routes/routes'))
