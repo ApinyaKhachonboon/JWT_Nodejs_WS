@@ -1,48 +1,22 @@
-class Product {
-    constructor(id, name, image, price, stock) {
-        this.id = id
-        this.name = name
-        this.image = image
-        this.price = price
-        this.stock = stock
-    }
-}
+const productRepository = require('../repositories/product.repository');
 
-const products = [
-    new Product(1, "Macbook Pro", "", 90000, 0),
-    new Product(2, "iPhone XS", "", 50000, 10),
-]
+exports.findAll = async () => await productRepository.findAll()
 
-let count = products.length
+exports.findByPrice = async (min, max) => await productRepository.findByPrice(min, max)
 
-exports.findAll = () => products
+exports.findById = async (id) => await productRepository.findById(id)
 
-exports.findByPrice = (min, max) => products.filter(product => product.price >= min && product.price <= max)
+exports.add = async (product, file) => await productRepository.add({ ...product, image: file ? file.filename : "" })
 
-exports.findById = (id) => products.filter(product => product.id == id)
-
-exports.add = (product, file) => {
-    count = count + 1
-    const productNew = new Product(count, product.name, file ? file.filename : "", product.price, product.stock)
-    products.push(productNew)
-    return productNew
-}
-
-exports.update = (id, product, file) => {
-    const index = products.findIndex(product => product.id == id)
-    if (index !== -1) {
-        const productUpdated = new Product(Number(id), product.name, file ? file.filename : products[index].image, product.price, product.stock)
-        products[index] = productUpdated
-        return productUpdated
+exports.update = async (id, product, file) => {
+    const result = await productRepository.findById(id)
+    if (result) {
+        const updated = await productRepository.update(result.id, { ...product, image: file ? file.filename : result.image })
+        if (updated) {
+            return await productRepository.findById(id)
+        }
     }
     return null
 }
 
-exports.remove = (id) => {
-    const index = products.findIndex(product => product.id == id)
-    if (index !== -1) {
-        products.splice(index, 1)
-        return true
-    }
-    return false
-}
+exports.remove = async (id) => await productRepository.remove(id)
