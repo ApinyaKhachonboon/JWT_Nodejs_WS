@@ -1,5 +1,15 @@
 const express = require('express')
 const app = express()
+const cors = require('cors');
+
+const corsOptions = {
+    origin: ['http://example.com', 
+           'http://localhost:4200',
+            'https://www.w3schools.com'],
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions))
 
 app.use('/image', express.static('./images'))
 
