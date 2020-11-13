@@ -10,11 +10,24 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
+  "staging": {
+    "username": "butehpqj",
+    "password": "sRE_6sO5daZAdLfib73wd9mHGQNRazx7",
+    "database": "butehpqj",
+    "host": "arjuna.db.elephantsql.com",
+    "dialect": "postgres"
+  },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "sa",
+    "password": "Tel1234!",
+    "database": "CM",
+    "host": "localhost",
+    "port": "1113",
+    "dialect": "mssql",
+    "dialectOptions": {
+      "options": {
+        "validateBulkLoadParameters": false
+      }
+    }
   }
 }
