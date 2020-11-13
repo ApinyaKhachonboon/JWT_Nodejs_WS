@@ -1,6 +1,10 @@
 const express = require('express')
+const cors = require('cors')
+const dotenv = require('dotenv')
+
+dotenv.config()
+
 const app = express()
-const cors = require('cors');
 
 const corsOptions = {
     origin: ['http://example.com', 
@@ -17,9 +21,11 @@ app.use(express.json())
 
 app.use(require('./src/routes/routes'))
 
-const port = 3000
+const port = process.env.PORT || 3000
+const env = process.env.NODE_ENV || "development"
 
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`);
+    console.log(`ENV on: ${env}`);
     console.log("Press Ctrl + C to quit.");
 })
