@@ -22,6 +22,8 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.21.0",
     "sqlite3": "^5.0.0",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0",
     "tedious": "^9.2.1"
   },
   "devDependencies": {
